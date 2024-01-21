@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "labelgenerator"
+version = "0.1.0"
+description = ""
+authors = ["Alex Lyapin <alexlpn@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+reportlab = "^4.0.9"
+pydantic = "^2.5.3"
+pandas = "^2.2.0"
+openpyxl = "^3.1.2"
+pyarrow = "^15.0.0"
+pyside6 = "^6.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
