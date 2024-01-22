@@ -1,97 +1,12 @@
+from reader import parse_excel_sheet
 from tools import MealCard, generate_meal_stickers
 from datetime import datetime
 
-meals = [
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-    MealCard(
-        name="John Doe",
-        sandwich="Ham Ham Ham Ham Ham Ham Ham Ham Ham",
-        bread="White",
-        date=datetime.now(),
-    ),
-    MealCard(name="Jane Doe", sandwich="Cheese", bread="Brown", date=datetime.now()),
-    MealCard(name="John Smith", sandwich="Tuna", bread="Corn", date=datetime.now()),
-    MealCard(
-        name="Jane Smith", sandwich="Egg", bread="Gluten free", date=datetime.now()
-    ),
-]
-
-
 if __name__ == "__main__":
-    canvas = generate_meal_stickers(meals, "Meal_Stickers.pdf")
+    file_path = "tmp/NEW - SiTime Lunch Order Sheet and Office Registration.xlsx"
+    sheet_name = "16-1"
+
+    meal_cards = parse_excel_sheet(file_path, sheet_name)
+    date = datetime.strptime(sheet_name, "%d-%m")
+    filename = f"Meal_Stickers_{date.strftime('%b_%d')}.pdf"
+    canvas = generate_meal_stickers(meal_cards, f"tmp/{filename}", date)
