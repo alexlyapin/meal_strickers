@@ -32,6 +32,15 @@ def parse_excel_sheet(file_path, sheet_name):
     return meal_cards
 
 
+def parse_pricelist(file_path):
+    df = pd.read_excel(file_path, sheet_name="pricelist")
+    pricelist = {}
+    for s, p in zip(df["Sandwich"], df["Price"]):
+        pricelist[s] = p
+
+    return pricelist
+
+
 if __name__ == "__main__":
     # Example usage
     file_path = "tmp/NEW - SiTime Lunch Order Sheet and Office Registration.xlsx"

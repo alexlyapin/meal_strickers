@@ -2,11 +2,11 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 
 from pydantic import BaseModel
-from datetime import datetime
-from datetime import datetime
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.utils import simpleSplit
+from collections import defaultdict
+from openpyxl import Workbook
 
 
 # Define a Pydantic model for the meal card
@@ -111,3 +111,35 @@ def generate_meal_stickers(meals, filename, date):
 
     # Save the PDF file
     c.save()
+
+
+def generate_estimates(meals, pricelist, filename, date):
+    estimates = defaultdict(float)
+    for m in meals:
+        estimates[m.sandwich] += pricelist[m.sandwich]
+
+    workbook = Workbook()
+    sheet = workbook.active
+
+    row = 1
+    sheet[f"A{row}"] = "Sandwich"
+    sheet[f"B{row}"] = "Count"
+    sheet[f"C{row}"] = "Price per sandwich"
+    sheet[f"D{row}"] = "Total"
+
+    total = 0
+    for row, (sandwich, estimate) in enumerate(estimates.items(), start=2):
+        price = pricelist[sandwich]
+
+        sheet[f"A{row}"] = sandwich
+        sheet[f"B{row}"] = int(estimate / price)
+        sheet[f"C{row}"] = price
+        sheet[f"D{row}"] = estimate
+
+        total += estimate
+
+    row += 1
+    sheet[f"C{row}"] = "Total"
+    sheet[f"D{row}"] = total
+
+    workbook.save(filename)
