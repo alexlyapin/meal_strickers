@@ -16,4 +16,4 @@ if __name__ == "__main__":
     # generate estimates
     pricelist = parse_pricelist(pricelist_path)
     filename = f"SiTime_Meal_Estimates_{date.strftime('%b_%d')}.xlsx"
-    generate_estimates(meal_cards, pricelist, f"tmp/{filename}", date)
+    generate_estimates(meal_cards, pricelist, f"tmp/{filename}")

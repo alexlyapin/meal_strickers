@@ -113,7 +113,7 @@ def generate_meal_stickers(meals, filename, date):
     c.save()
 
 
-def generate_estimates(meals, pricelist, filename, date):
+def generate_estimates(meals, pricelist, filename):
     estimates = defaultdict(float)
     for m in meals:
         estimates[m.sandwich] += pricelist[m.sandwich]
